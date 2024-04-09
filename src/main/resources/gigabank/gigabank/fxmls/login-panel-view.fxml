@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="405.0" stylesheets="@../stylesheets/styles-global.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gigabank.gigabank.Controllers.LoginPanelController">
+    <children>
+        <VBox layoutX="42.0" layoutY="88.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="544.0" prefWidth="322.0">
+            <children>
+                <TextField prefHeight="141.0" prefWidth="816.0" />
+                <TextField prefHeight="141.0" prefWidth="816.0">
+                    <VBox.margin>
+                        <Insets top="100.0" />
+                    </VBox.margin>
+                </TextField>
+                <Button mnemonicParsing="false" prefHeight="195.0" prefWidth="958.0" text="Button">
+                    <VBox.margin>
+                        <Insets top="100.0" />
+                    </VBox.margin>
+                </Button>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

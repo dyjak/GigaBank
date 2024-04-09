@@ -1,0 +1,11 @@
+
+.textField
+{
+    -fx-border-width: 5;
+    -fx-border-color: black;
+}
+
+.button
+{
+    -fx-background-color: red;
+}
