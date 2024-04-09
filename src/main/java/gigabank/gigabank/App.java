@@ -14,6 +14,7 @@ public class App extends Application {
         //FXML LOADERS
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fxmls/login-panel-view.fxml"));
 
+        System.out.println("HEllo");
 
         int width = 405; int height = 720;
         Scene scene = new Scene(fxmlLoader.load(), width, height);
