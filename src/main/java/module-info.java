@@ -8,4 +8,6 @@ module gigabank.gigabank {
     exports gigabank.gigabank;
     exports gigabank.gigabank.Controllers;
     opens gigabank.gigabank.Controllers to javafx.fxml;
+    exports gigabank.gigabank.Entities;
+    opens gigabank.gigabank.Entities to javafx.fxml;
 }
