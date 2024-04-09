@@ -1,6 +1,7 @@
 module gigabank.gigabank {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens gigabank.gigabank to javafx.fxml;
