@@ -12,6 +12,8 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Launcher extends Application {
+
+
     @Override
     public void start(Stage stage) throws IOException, SQLException {
 
@@ -22,30 +24,23 @@ public class Launcher extends Application {
 
 
 
+
+
+        //  ###   FIRTS SCENE : LOGIN PANEL   ###
         //FXML LOADER
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("fxmls/login-panel-view.fxml"));
-
         //SCENE
-        int width = 408; int height = 720;
-        Scene scene = new Scene(fxmlLoader.load(), width, height);
-        goTo_LOGIN_PANEL(stage, scene);
-
+        Scene scene = new Scene(fxmlLoader.load(), ApplicationManager.WIDTH, ApplicationManager.HEIGHT);
+        stage.setScene(scene);
         //STAGE LOAD
-        stage.setTitle("Hello!");
+        stage.setTitle(ApplicationManager.TITLE);
         stage.setResizable(false);
         stage.show();
     }
 
+
     public static void main(String[] args) {
         launch();
-    }
-
-
-
-
-    public void goTo_LOGIN_PANEL(Stage stage, Scene scene)
-    {
-        stage.setScene(scene);
     }
 
 }

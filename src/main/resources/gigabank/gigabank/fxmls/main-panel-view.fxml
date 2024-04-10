@@ -7,11 +7,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="405.0" stylesheets="@../stylesheets/styles-global.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gigabank.gigabank.Controllers.MainPanelController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="405.0" stylesheets="@../stylesheets/styles-global.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gigabank.gigabank.ControllerMainPanel">
     <children>
         <VBox layoutX="42.0" layoutY="88.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="544.0" prefWidth="322.0">
             <children>
-                <Button fx:id="btn2" mnemonicParsing="false" onAction="#handlebtn2" prefHeight="195.0" prefWidth="958.0" text="Button" textFill="#f8f8f8">
+                <Button mnemonicParsing="false" onAction="#switchToLoginPanel" prefHeight="195.0" prefWidth="958.0" text="Button" textFill="#f8f8f8">
                     <VBox.margin>
                         <Insets top="100.0" />
                     </VBox.margin>
