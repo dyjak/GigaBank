@@ -3,6 +3,7 @@ module gigabank.gigabank {
     requires javafx.fxml;
     requires java.sql;
     requires java.desktop;
+    requires atlantafx.base;
 
 
     opens gigabank.gigabank to javafx.fxml;

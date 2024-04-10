@@ -1,5 +1,6 @@
 package gigabank.gigabank;
 
+import atlantafx.base.theme.Dracula;
 import gigabank.gigabank.Entities.EntityUser;
 import gigabank.gigabank.Entities.DB_ListBuilder;
 import javafx.application.Application;
@@ -17,6 +18,8 @@ public class Launcher extends Application {
     @Override
     public void start(Stage stage) throws IOException, SQLException {
 
+        //ATLANTA-FX
+
         //TEST QUERY
         String theQuery = "SELECT * FROM users";
         ArrayList<EntityUser> users_x = DB_ListBuilder.userListBuild(theQuery);
@@ -28,7 +31,7 @@ public class Launcher extends Application {
 
         //  ###   FIRTS SCENE : LOGIN PANEL   ###
         //FXML LOADER
-        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("fxmls/login-panel-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("fxmls/main-panel-view.fxml"));
         //SCENE
         Scene scene = new Scene(fxmlLoader.load(), ApplicationManager.WIDTH, ApplicationManager.HEIGHT);
         stage.setScene(scene);

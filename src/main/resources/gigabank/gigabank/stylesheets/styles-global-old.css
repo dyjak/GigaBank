@@ -1,0 +1,78 @@
+* {
+    -main-color: #2185D5;
+    -color-1: #3A4750;
+    -color-2: #303841;
+    -color-3: #F3F3F3;
+    -main-font: "Creato Display";
+}
+
+.theBody
+{
+    -fx-background-color: -color-2;
+
+}
+
+#titleBox{
+    -fx-background-color: -color-1;
+}
+
+#helloText {
+    -fx-fill: -color-3;
+    -fx-font-size: xx-large;
+    -fx-font-family: -main-font;
+}
+
+
+
+
+
+.titled-pane{
+    -fx-text-fill: -color-3;
+    -fx-font-family: -main-font;
+    -fx-font-size: large;
+    -fx-padding: 15;
+}
+.titled-pane > .title{
+    -fx-background-color: -main-color;
+}
+.titled-pane > .title > .arrow-button .arrow {
+    -fx-background-color: -color-3;
+    -fx-alignment: center;
+}
+
+.titled-pane > *.content{
+    -fx-background-color: -color-1;
+    -fx-border-width: 0 10 10 10;
+    -fx-border-color: -main-color;
+}
+
+.itemBox {
+    -fx-background-color: -color-2;
+    -fx-pref-height: 30;
+    -fx-padding: 10;
+    -fx-border-width: 5;
+    -fx-border-color: -main-color;
+}
+
+.itemText{
+    -fx-fill: -color-3;
+    -fx-font-size: large;
+    -fx-font-family: -main-font;
+}
+
+
+
+
+
+
+
+.textField
+{
+    -fx-border-width: 5;
+    -fx-border-color: black;
+}
+
+.button
+{
+    -fx-background-color: red;
+}

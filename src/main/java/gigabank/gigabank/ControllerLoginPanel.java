@@ -1,6 +1,7 @@
 package gigabank.gigabank;
 
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -8,9 +9,11 @@ import javafx.stage.Stage;
 
 import javafx.event.ActionEvent;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class ControllerLoginPanel {
+public class ControllerLoginPanel implements Initializable {
 
     private Stage stage;
     private Scene scene;
@@ -27,6 +30,9 @@ public class ControllerLoginPanel {
         stage.show();
     }
 
-
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("SUCCESFULLY INITIALIZED");
+    }
 
 }
