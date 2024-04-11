@@ -1,9 +1,5 @@
 .root {
 
-  -main-color: #720455;
-  -color-1: #030637;
-  -color-2: #3C0753;
-  -color-3: #910A67;
 
   -color-dark: #0d0e12;
   -color-light: #f8f8f2;
@@ -67,7 +63,7 @@
   -color-bg-default: -color-1;
   -color-bg-overlay: #282a36;
   /*-color-bg-subtle: #3d3f4a;*/
-  -color-bg-subtle: #-color-1;
+  -color-bg-subtle: -color-1;
   -color-bg-inset: #181920;
   /*-color-border-default: #685ab3;*/
   -color-border-default: -main-color;
@@ -2080,7 +2076,8 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
   -fx-max-width: 0.85em;
 }
 .radio-button > .radio:hover {
-  -fx-background-color: -color-fg-muted, -color-bg-subtle;
+  /*-fx-background-color: -color-fg-muted, -color-bg-subtle;*/
+  -fx-background-color: -color-bg-subtle;
 }
 .radio-button:disabled {
   -fx-opacity: 0.4;
@@ -2405,7 +2402,8 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
   -fx-alignment: CENTER;
   -fx-text-fill: -color-fg-default;
-  -fx-padding: 0.4em 0.4em 0.4em 0.4em;
+  /*-fx-padding: 0.4em 0.4em 0.4em 0.4em;*/
+  -fx-padding: 5;
 }
 .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label > * {
   -fx-fill: -color-fg-default;

@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -89,6 +90,9 @@ public class ControllerMainPanel implements Initializable {
         }
         for(EntityUser user : users_x)
         {
+            VBox expandedItemBox = new VBox();
+            expandedItemBox.getStyleClass().add("expandedItemBox");
+            boolean[] expanded = {false};
             GridPane itemBox = new GridPane();
             itemBox.getStyleClass().add("itemBox");
             ColumnConstraints col1 = new ColumnConstraints();
@@ -102,12 +106,28 @@ public class ControllerMainPanel implements Initializable {
             idText.getStyleClass().add("itemText");
             Text nameText = new Text(user.getName() + " " + user.getSurname());
             nameText.getStyleClass().add("itemText");
-            Button button = new Button("OPTIONS");
+            Button expandButton = new Button("Expand");
             itemBox.add(idText,0,0);
             itemBox.add(nameText,1,0);
-            itemBox.add(button,2,0);
-            VBox.setMargin(itemBox,new Insets(10,0,10,0));
-            usersPane.getChildren().add(itemBox);
+            itemBox.add(expandButton,2,0);
+            VBox moreItemsBox = new VBox();
+                expandButton.setOnAction(event -> {
+                    if(expanded[0]){
+                        expanded[0] = false;
+                        moreItemsBox.getChildren().clear();
+                    }
+                    else
+                    {
+                        expanded[0] = true;
+                        Button b1 = new Button("Expand");
+                        Button b2 = new Button("Expand");
+                        Button b3 = new Button("Expand");
+                        moreItemsBox.getChildren().addAll(b1, b2, b3);
+                    }
+                });
+            VBox.setMargin(expandedItemBox,new Insets(10,0,10,0));
+            expandedItemBox.getChildren().addAll(itemBox, moreItemsBox);
+            usersPane.getChildren().add(expandedItemBox);
         }
     }
 }

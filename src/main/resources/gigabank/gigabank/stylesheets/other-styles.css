@@ -1,6 +1,21 @@
+*{
+    -main-color: #720455;
+    -color-1: #030637;
+    -color-2: #3C0753;
+    -color-3: #910A67;
+}
 
 .itemBox{
     -fx-background-color: -color-2;
     -fx-padding: 0 10 0 10;
     -fx-background-radius: 5;
+}
+
+.expandedItemBox{
+    -fx-background-color: -color-3;
+    -fx-background-radius: 5;
+}
+
+#boxTitle{
+    -fx-background-color: -main-color;
 }
