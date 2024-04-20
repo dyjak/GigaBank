@@ -49,24 +49,22 @@ public class DB_ListBuilder {
 
 
     //CURRENCIES BUILDER
-    public static ArrayList<EntityCurrency> currencyListBuild(String sqlQuery) throws SQLException {
+    public static EntityCurrency currencyBuild(String sqlQuery) throws SQLException {
 
         ResultSet resultSet = DB_EstablishConnection().executeQuery(sqlQuery);
 
-        ArrayList<EntityCurrency> currencies_x = new ArrayList<>();
-        while (resultSet.next()) {
+        EntityCurrency currency = null;
+        if(resultSet.next()) {
             int currency_id = resultSet.getInt("currency_id");
             ;
-            String currency = resultSet.getString("currency");
+            String currencyName = resultSet.getString("currency");
             ;
             double usd_conversion = resultSet.getDouble("usd_conversion");
             ;
-
-            EntityCurrency currency_ = new EntityCurrency(currency_id, currency, usd_conversion);
-            currencies_x.add(currency_);
-            //System.out.println(account);
+            currency = new EntityCurrency(currency_id, currencyName, usd_conversion);
         }
-        return currencies_x;
+
+        return currency;
     }
 
 

@@ -1,7 +1,10 @@
 package gigabank.gigabank;
 
 import gigabank.gigabank.Entities.DB_ListBuilder;
+import gigabank.gigabank.Entities.EntityAccount;
+import gigabank.gigabank.Entities.EntityCurrency;
 import gigabank.gigabank.Entities.EntityUser;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +21,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -114,15 +118,69 @@ public class ControllerMainPanel implements Initializable {
                 expandButton.setOnAction(event -> {
                     if(expanded[0]){
                         expanded[0] = false;
+                        expandButton.setText("Expand");
                         moreItemsBox.getChildren().clear();
                     }
                     else
                     {
                         expanded[0] = true;
-                        Button b1 = new Button("Expand");
-                        Button b2 = new Button("Expand");
-                        Button b3 = new Button("Expand");
-                        moreItemsBox.getChildren().addAll(b1, b2, b3);
+                        expandButton.setText("Collapse");
+                        String query="SELECT * FROM accounts WHERE accounts.user_id = " + user.getUser_id();
+                        ArrayList<EntityAccount> accounts_x = null;
+                        try {
+                            accounts_x = DB_ListBuilder.accountListBuild(query);
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                        for(EntityAccount account : accounts_x)
+                        {
+
+                            Text accountIdText = new Text("ID: " + account.getAccount_id());
+                            Text accountNumberText = new Text(account.getAccount_number());
+                            Text accountBalanceText = new Text(String.valueOf(account.getBalance()));
+                            Text accountCurrencyText = new Text("unknown");
+                            try {
+                                String queryCurr = "SELECT * FROM currencies WHERE currencies.currency_id = " + account.getCurrency_id();
+                                System.out.println(queryCurr);
+                                EntityCurrency currency = DB_ListBuilder.currencyBuild(queryCurr);
+                                accountCurrencyText.setText(currency.getCurrency());
+                            } catch (SQLException e) {
+                                throw new RuntimeException(e);
+                            }
+                            ColumnConstraints col_id = new ColumnConstraints();
+                            col_id.setPercentWidth(20);
+                            col_id.setFillWidth(false);
+                            ColumnConstraints col_number = new ColumnConstraints();
+                            col_number.setPercentWidth(40);
+                            col_number.setFillWidth(false);
+                            ColumnConstraints col_balance = new ColumnConstraints();
+                            col_balance.setPercentWidth(25);
+                            col_balance.setFillWidth(false);
+                            ColumnConstraints col_currency = new ColumnConstraints();
+                            col_currency.setPercentWidth(15);
+                            col_currency.setFillWidth(false);
+                            GridPane accountBox = new GridPane();
+                            accountBox.setMaxSize(expandedItemBox.getPrefWidth(), expandedItemBox.getPrefHeight());
+                            accountBox.getColumnConstraints().addAll(col_id, col_number, col_balance, col_currency);
+                            accountBox.add(accountIdText,0,0);
+                            accountBox.add(accountNumberText,1,0);
+                            accountBox.add(accountBalanceText,2,0);
+                            accountBox.add(accountCurrencyText,3,0);
+                            accountBox.getStyleClass().add("accountBox");
+                            VBox.setMargin(accountBox, new Insets(3,7,3,7));
+
+                            moreItemsBox.getChildren().add(accountBox);
+                        }
+                        //                        //SOME TRANSITION?
+                        //                                FadeTransition ft = new FadeTransition(Duration.millis(3000));
+                        //                                ft.setFromValue(0);
+                        //                                ft.setToValue(1);
+                        //                                ScaleTransition st = new ScaleTransition(Duration.millis(3000));
+                        //                                st.setFromY(0);
+                        //                                st.setToY(1);
+                        //                                //st.setByY(1.5f);
+                        //                                SequentialTransition seqT = new SequentialTransition (expandedItemBox, ft,st);
+                        //                                seqT.play();
                     }
                 });
             VBox.setMargin(expandedItemBox,new Insets(10,0,10,0));

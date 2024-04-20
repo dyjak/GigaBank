@@ -14,8 +14,17 @@
 .expandedItemBox{
     -fx-background-color: -color-3;
     -fx-background-radius: 5;
+    -fx-animated: 1;
+    -fx-padding: 3;
 }
 
 #boxTitle{
     -fx-background-color: -main-color;
+}
+
+.accountBox{
+    -fx-background-color: -color-1;
+    -fx-background-radius: 5;
+    -fx-animated: 1;
+    -fx-padding: 3;
 }
