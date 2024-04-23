@@ -1,10 +1,6 @@
 package gigabank.gigabank;
 
-import gigabank.gigabank.Entities.DB_ListBuilder;
-import gigabank.gigabank.Entities.EntityAccount;
-import gigabank.gigabank.Entities.EntityCurrency;
-import gigabank.gigabank.Entities.EntityUser;
-import javafx.animation.*;
+import gigabank.gigabank.Entities.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,11 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -81,17 +75,14 @@ public class ControllerMainPanel implements Initializable {
     {
         usersPane.getChildren().clear();
 
-        String sqlQuery = "SELECT * FROM users";
-        if(searchText.length() > 0) sqlQuery += " WHERE UPPER(name) LIKE '%" + searchText + "%'" +
-                                                    " OR UPPER(surname) LIKE '%" + searchText + "%'" +
-                                                    " OR UPPER(login) LIKE '%" + searchText + "%'";
-        System.out.println(sqlQuery);
+        DB_ProceduralListBuilder listBuilder = new DB_ProceduralListBuilder();
         ArrayList<EntityUser> users_x = null;
-        try {
-            users_x = DB_ListBuilder.userListBuild(sqlQuery);
+        try
+        {
+            users_x = listBuilder.userListBuild(searchText);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+            throw new RuntimeException(e);}
+
         for(EntityUser user : users_x)
         {
             VBox expandedItemBox = new VBox();
@@ -128,7 +119,7 @@ public class ControllerMainPanel implements Initializable {
                         String query="SELECT * FROM accounts WHERE accounts.user_id = " + user.getUser_id();
                         ArrayList<EntityAccount> accounts_x = null;
                         try {
-                            accounts_x = DB_ListBuilder.accountListBuild(query);
+                            accounts_x = DB_ClassicListBuilder.accountListBuild(query);
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
@@ -142,7 +133,7 @@ public class ControllerMainPanel implements Initializable {
                             try {
                                 String queryCurr = "SELECT * FROM currencies WHERE currencies.currency_id = " + account.getCurrency_id();
                                 System.out.println(queryCurr);
-                                EntityCurrency currency = DB_ListBuilder.currencyBuild(queryCurr);
+                                EntityCurrency currency = DB_ClassicListBuilder.currencyBuild(queryCurr);
                                 accountCurrencyText.setText(currency.getCurrency());
                             } catch (SQLException e) {
                                 throw new RuntimeException(e);

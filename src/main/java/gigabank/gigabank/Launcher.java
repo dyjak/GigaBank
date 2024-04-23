@@ -1,8 +1,7 @@
 package gigabank.gigabank;
 
-import atlantafx.base.theme.Dracula;
 import gigabank.gigabank.Entities.EntityUser;
-import gigabank.gigabank.Entities.DB_ListBuilder;
+import gigabank.gigabank.Entities.DB_ClassicListBuilder;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,7 +21,7 @@ public class Launcher extends Application {
 
         //TEST QUERY
         String theQuery = "SELECT * FROM users";
-        ArrayList<EntityUser> users_x = DB_ListBuilder.userListBuild(theQuery);
+        ArrayList<EntityUser> users_x = DB_ClassicListBuilder.userListBuild(theQuery);
         System.out.println(users_x);
 
 

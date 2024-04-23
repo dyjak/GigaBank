@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 
-public class DB_ListBuilder {
+public class DB_ClassicListBuilder {
 
 
     //CONNECTION ESTABLISHMENT
@@ -159,9 +159,7 @@ public class DB_ListBuilder {
 
             EntityUser user = new EntityUser(user_id, name, surname, birthdate, sex, login, pin);
             users_x.add(user);
-            //System.out.println(eUser);
         }
         return users_x;
     }
-
 }

@@ -4,6 +4,7 @@ module gigabank.gigabank {
     requires java.sql;
     requires java.desktop;
     requires atlantafx.base;
+    requires com.oracle.database.jdbc;
 
 
     opens gigabank.gigabank to javafx.fxml;
