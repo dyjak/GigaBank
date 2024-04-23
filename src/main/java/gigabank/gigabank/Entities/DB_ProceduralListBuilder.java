@@ -42,4 +42,27 @@ public class DB_ProceduralListBuilder {
         }
         return users_x;
     }
+
+
+    //CURRENCY BUILDER
+    public ArrayList<EntityCurrency> currencyListBuild(String argument) throws SQLException {
+        Statement createStatement = DB_EstablishConnection().createStatement();
+
+        CallableStatement callableStatement = DB_EstablishConnection().prepareCall("{CALL search_currencies(?)}");
+        callableStatement.setString(1, argument);
+        callableStatement.execute();
+
+        String sqlQuery="SELECT * FROM temp_currencies";
+        ResultSet resultSet = DB_EstablishConnection().createStatement().executeQuery(sqlQuery);
+
+        ArrayList<EntityCurrency> currencies_x = new ArrayList<>();
+        while (resultSet.next()) {
+            int currency_id = resultSet.getInt("currency_id");
+            String currencyName = resultSet.getString("currency");
+            double usd_conversion = resultSet.getDouble("usd_conversion");
+            EntityCurrency currency = new EntityCurrency(currency_id, currencyName, usd_conversion);
+            currencies_x.add(currency);
+        }
+        return currencies_x;
+    }
 }

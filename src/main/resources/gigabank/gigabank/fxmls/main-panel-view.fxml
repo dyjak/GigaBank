@@ -81,6 +81,64 @@
             </GridPane>
             <TabPane prefHeight="517.0" prefWidth="375.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
+                <Tab text="Currencies">
+                     <content>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="332.0">
+                           <content>
+                              <VBox fx:id="currenciesPane" maxHeight="1.7976931348623157E308" prefHeight="158.0" prefWidth="374.0">
+                                 <children>
+                                    <GridPane prefHeight="30.0" prefWidth="310.0" styleClass="itemBox">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="itemText" text="Text" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="itemText" text="Text" GridPane.columnIndex="1" />
+                                          <Button mnemonicParsing="false" prefHeight="18.0" prefWidth="113.0" text="Button" GridPane.columnIndex="2">
+                                             <font>
+                                                <Font size="8.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="75.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.0" minWidth="10.0" prefWidth="137.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                    </GridPane>
+                                    <GridPane styleClass="itemBox">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="itemText" text="Text" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="itemText" text="Text" GridPane.columnIndex="1" />
+                                          <Button mnemonicParsing="false" prefHeight="18.0" prefWidth="113.0" text="Button" GridPane.columnIndex="2">
+                                             <font>
+                                                <Font size="8.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="75.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.0" minWidth="10.0" prefWidth="137.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                    </GridPane>
+                                 </children>
+                                 <padding>
+                                    <Insets left="15.0" right="15.0" top="15.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                           <opaqueInsets>
+                              <Insets bottom="15.0" left="15.0" right="15.0" />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </padding>
+                        </ScrollPane>
+                     </content></Tab>
                 <Tab style="-fx-font-size: 15;" text="Users">
                      <content>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="332.0">
@@ -140,7 +198,6 @@
                         </ScrollPane>
                      </content>
                 </Tab>
-                <Tab text="Currencies" />
               </tabs>
                <VBox.margin>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

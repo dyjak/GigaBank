@@ -53,13 +53,16 @@ public class ControllerMainPanel implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        loadResults();
+        loadResultsUsers();
+        loadResultsCurrencies();
 
     }
 
 
     @FXML
     private VBox usersPane;
+    @FXML
+    private VBox currenciesPane;
     @FXML
     private TextField searchField;
 
@@ -68,10 +71,11 @@ public class ControllerMainPanel implements Initializable {
     {
         System.out.println("updateResults");
         searchText = searchField.getText().toUpperCase();
-        loadResults();
+        loadResultsUsers();
+        loadResultsCurrencies();
     }
 
-    public void loadResults()
+    public void loadResultsUsers()
     {
         usersPane.getChildren().clear();
 
@@ -179,4 +183,52 @@ public class ControllerMainPanel implements Initializable {
             usersPane.getChildren().add(expandedItemBox);
         }
     }
+
+
+
+
+
+
+
+    public void loadResultsCurrencies()
+    {
+        currenciesPane.getChildren().clear();
+
+        DB_ProceduralListBuilder listBuilder = new DB_ProceduralListBuilder();
+        ArrayList<EntityCurrency> currencies_x = null;
+        try
+        {
+            currencies_x = listBuilder.currencyListBuild(searchText);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);}
+
+        for(EntityCurrency currency : currencies_x)
+        {
+            VBox expandedItemBox = new VBox();
+            expandedItemBox.getStyleClass().add("expandedItemBox");
+            boolean[] expanded = {false};
+            GridPane itemBox = new GridPane();
+            itemBox.getStyleClass().add("itemBox");
+            ColumnConstraints col1 = new ColumnConstraints();
+            col1.setPercentWidth(20);
+            ColumnConstraints col2 = new ColumnConstraints();
+            col2.setPercentWidth(60);
+            ColumnConstraints col3 = new ColumnConstraints();
+            col3.setPercentWidth(20);
+            itemBox.getColumnConstraints().addAll(col1, col2, col3);
+            Text idText = new Text("ID "+currency.getCurrency_id());
+            idText.getStyleClass().add("itemText");
+            Text nameText = new Text("1 " + currency.getCurrency() + " = " + currency.getUsd_conversion() + "$");
+            nameText.getStyleClass().add("itemText");
+            Button expandButton = new Button("Expand");
+            itemBox.add(idText,0,0);
+            itemBox.add(nameText,1,0);
+            itemBox.add(expandButton,2,0);
+
+            VBox.setMargin(expandedItemBox,new Insets(10,0,10,0));
+            expandedItemBox.getChildren().addAll(itemBox);
+            currenciesPane.getChildren().add(expandedItemBox);
+        }
+    }
+
 }
