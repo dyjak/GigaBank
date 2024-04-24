@@ -11,4 +11,6 @@ module gigabank.gigabank {
     exports gigabank.gigabank;
     exports gigabank.gigabank.Entities;
     opens gigabank.gigabank.Entities to javafx.fxml;
+
+    opens gigabank.gigabank.canvas.icons;
 }

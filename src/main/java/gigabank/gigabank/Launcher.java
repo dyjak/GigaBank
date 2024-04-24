@@ -5,6 +5,7 @@ import gigabank.gigabank.Entities.DB_ClassicListBuilder;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,6 +25,9 @@ public class Launcher extends Application {
         ArrayList<EntityUser> users_x = DB_ClassicListBuilder.userListBuild(theQuery);
         System.out.println(users_x);
 
+        //IMAGES
+        Image image = new Image(Launcher.class.getResourceAsStream("canvas/icons/edit.png"));
+        stage.getIcons().add(image);
 
 
 

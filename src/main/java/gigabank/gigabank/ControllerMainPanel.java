@@ -1,7 +1,11 @@
 package gigabank.gigabank;
 
 import gigabank.gigabank.Entities.*;
+import gigabank.gigabank.Prefabs.Prefab_CurrencyItemBox;
+import gigabank.gigabank.Prefabs.Prefab_DialogueEdit;
+import gigabank.gigabank.Prefabs.Prefab_UserItemBox;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,13 +15,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -52,10 +63,8 @@ public class ControllerMainPanel implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         loadResultsUsers();
         loadResultsCurrencies();
-
     }
 
 
@@ -67,17 +76,22 @@ public class ControllerMainPanel implements Initializable {
     private TextField searchField;
 
 
-    public void updateResults(ActionEvent event)
-    {
+    public void updateResults(ActionEvent event) {
         System.out.println("updateResults");
         searchText = searchField.getText().toUpperCase();
         loadResultsUsers();
         loadResultsCurrencies();
     }
 
+
+
     public void loadResultsUsers()
     {
         usersPane.getChildren().clear();
+
+        ImageView icon_create = new ImageView(new Image(getClass().getResourceAsStream("canvas/icons/plus.png"))); icon_create.setFitWidth(20);    icon_create.setFitHeight(20);
+        Button createButton = new Button();   createButton.setPrefWidth(999); createButton.setGraphic(icon_create);
+        usersPane.getChildren().add(createButton);
 
         DB_ProceduralListBuilder listBuilder = new DB_ProceduralListBuilder();
         ArrayList<EntityUser> users_x = null;
@@ -87,101 +101,8 @@ public class ControllerMainPanel implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);}
 
-        for(EntityUser user : users_x)
-        {
-            VBox expandedItemBox = new VBox();
-            expandedItemBox.getStyleClass().add("expandedItemBox");
-            boolean[] expanded = {false};
-            GridPane itemBox = new GridPane();
-            itemBox.getStyleClass().add("itemBox");
-            ColumnConstraints col1 = new ColumnConstraints();
-            col1.setPercentWidth(20);
-            ColumnConstraints col2 = new ColumnConstraints();
-            col2.setPercentWidth(60);
-            ColumnConstraints col3 = new ColumnConstraints();
-            col3.setPercentWidth(20);
-            itemBox.getColumnConstraints().addAll(col1, col2, col3);
-            Text idText = new Text("ID "+user.getUser_id());
-            idText.getStyleClass().add("itemText");
-            Text nameText = new Text(user.getName() + " " + user.getSurname());
-            nameText.getStyleClass().add("itemText");
-            Button expandButton = new Button("Expand");
-            itemBox.add(idText,0,0);
-            itemBox.add(nameText,1,0);
-            itemBox.add(expandButton,2,0);
-            VBox moreItemsBox = new VBox();
-                expandButton.setOnAction(event -> {
-                    if(expanded[0]){
-                        expanded[0] = false;
-                        expandButton.setText("Expand");
-                        moreItemsBox.getChildren().clear();
-                    }
-                    else
-                    {
-                        expanded[0] = true;
-                        expandButton.setText("Collapse");
-                        String query="SELECT * FROM accounts WHERE accounts.user_id = " + user.getUser_id();
-                        ArrayList<EntityAccount> accounts_x = null;
-                        try {
-                            accounts_x = DB_ClassicListBuilder.accountListBuild(query);
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-                        for(EntityAccount account : accounts_x)
-                        {
-
-                            Text accountIdText = new Text("ID: " + account.getAccount_id());
-                            Text accountNumberText = new Text(account.getAccount_number());
-                            Text accountBalanceText = new Text(String.valueOf(account.getBalance()));
-                            Text accountCurrencyText = new Text("unknown");
-                            try {
-                                String queryCurr = "SELECT * FROM currencies WHERE currencies.currency_id = " + account.getCurrency_id();
-                                System.out.println(queryCurr);
-                                EntityCurrency currency = DB_ClassicListBuilder.currencyBuild(queryCurr);
-                                accountCurrencyText.setText(currency.getCurrency());
-                            } catch (SQLException e) {
-                                throw new RuntimeException(e);
-                            }
-                            ColumnConstraints col_id = new ColumnConstraints();
-                            col_id.setPercentWidth(20);
-                            col_id.setFillWidth(false);
-                            ColumnConstraints col_number = new ColumnConstraints();
-                            col_number.setPercentWidth(40);
-                            col_number.setFillWidth(false);
-                            ColumnConstraints col_balance = new ColumnConstraints();
-                            col_balance.setPercentWidth(25);
-                            col_balance.setFillWidth(false);
-                            ColumnConstraints col_currency = new ColumnConstraints();
-                            col_currency.setPercentWidth(15);
-                            col_currency.setFillWidth(false);
-                            GridPane accountBox = new GridPane();
-                            accountBox.setMaxSize(expandedItemBox.getPrefWidth(), expandedItemBox.getPrefHeight());
-                            accountBox.getColumnConstraints().addAll(col_id, col_number, col_balance, col_currency);
-                            accountBox.add(accountIdText,0,0);
-                            accountBox.add(accountNumberText,1,0);
-                            accountBox.add(accountBalanceText,2,0);
-                            accountBox.add(accountCurrencyText,3,0);
-                            accountBox.getStyleClass().add("accountBox");
-                            VBox.setMargin(accountBox, new Insets(3,7,3,7));
-
-                            moreItemsBox.getChildren().add(accountBox);
-                        }
-                        //                        //SOME TRANSITION?
-                        //                                FadeTransition ft = new FadeTransition(Duration.millis(3000));
-                        //                                ft.setFromValue(0);
-                        //                                ft.setToValue(1);
-                        //                                ScaleTransition st = new ScaleTransition(Duration.millis(3000));
-                        //                                st.setFromY(0);
-                        //                                st.setToY(1);
-                        //                                //st.setByY(1.5f);
-                        //                                SequentialTransition seqT = new SequentialTransition (expandedItemBox, ft,st);
-                        //                                seqT.play();
-                    }
-                });
-            VBox.setMargin(expandedItemBox,new Insets(10,0,10,0));
-            expandedItemBox.getChildren().addAll(itemBox, moreItemsBox);
-            usersPane.getChildren().add(expandedItemBox);
-        }
+        Prefab_UserItemBox prefabUserItemBox = new Prefab_UserItemBox();
+        prefabUserItemBox.show(usersPane, users_x);
     }
 
 
@@ -190,10 +111,16 @@ public class ControllerMainPanel implements Initializable {
 
 
 
-    public void loadResultsCurrencies()
-    {
+    public void loadResultsCurrencies() {
+        //CLEARING
         currenciesPane.getChildren().clear();
 
+        //CREATE BUTTON
+        ImageView icon_create = new ImageView(new Image(getClass().getResourceAsStream("canvas/icons/plus.png"))); icon_create.setFitWidth(20);    icon_create.setFitHeight(20);
+        Button createButton = new Button();   createButton.setPrefWidth(999); createButton.setGraphic(icon_create);
+        currenciesPane.getChildren().add(createButton);
+
+        //CURRENCIES LIST
         DB_ProceduralListBuilder listBuilder = new DB_ProceduralListBuilder();
         ArrayList<EntityCurrency> currencies_x = null;
         try
@@ -202,33 +129,8 @@ public class ControllerMainPanel implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);}
 
-        for(EntityCurrency currency : currencies_x)
-        {
-            VBox expandedItemBox = new VBox();
-            expandedItemBox.getStyleClass().add("expandedItemBox");
-            boolean[] expanded = {false};
-            GridPane itemBox = new GridPane();
-            itemBox.getStyleClass().add("itemBox");
-            ColumnConstraints col1 = new ColumnConstraints();
-            col1.setPercentWidth(20);
-            ColumnConstraints col2 = new ColumnConstraints();
-            col2.setPercentWidth(60);
-            ColumnConstraints col3 = new ColumnConstraints();
-            col3.setPercentWidth(20);
-            itemBox.getColumnConstraints().addAll(col1, col2, col3);
-            Text idText = new Text("ID "+currency.getCurrency_id());
-            idText.getStyleClass().add("itemText");
-            Text nameText = new Text("1 " + currency.getCurrency() + " = " + currency.getUsd_conversion() + "$");
-            nameText.getStyleClass().add("itemText");
-            Button expandButton = new Button("Expand");
-            itemBox.add(idText,0,0);
-            itemBox.add(nameText,1,0);
-            itemBox.add(expandButton,2,0);
-
-            VBox.setMargin(expandedItemBox,new Insets(10,0,10,0));
-            expandedItemBox.getChildren().addAll(itemBox);
-            currenciesPane.getChildren().add(expandedItemBox);
-        }
+        Prefab_CurrencyItemBox prefabCurrencyItemBox = new Prefab_CurrencyItemBox();
+        prefabCurrencyItemBox.show(currenciesPane, currencies_x);
     }
 
 }
