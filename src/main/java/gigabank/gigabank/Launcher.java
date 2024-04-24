@@ -34,7 +34,7 @@ public class Launcher extends Application {
 
         //  ###   FIRTS SCENE : LOGIN PANEL   ###
         //FXML LOADER
-        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("fxmls/main-panel-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("fxmls/main-administrator-panel-view.fxml"));
         //SCENE
         Scene scene = new Scene(fxmlLoader.load(), ApplicationManager.WIDTH, ApplicationManager.HEIGHT);
         stage.setScene(scene);

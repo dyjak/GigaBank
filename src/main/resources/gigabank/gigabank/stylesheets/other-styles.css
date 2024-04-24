@@ -28,3 +28,10 @@
     -fx-animated: 1;
     -fx-padding: 3;
 }
+
+.otherBox{
+    -fx-background-color: -color-3;
+    -fx-background-radius: 5;
+    -fx-animated: 1;
+    -fx-padding: 3;
+}

@@ -1,6 +1,6 @@
 package gigabank.gigabank.Prefabs;
 
-import gigabank.gigabank.ControllerMainPanel;
+import gigabank.gigabank.ControllerAdministratorMainPanel;
 import gigabank.gigabank.Entities.EntityCurrency;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -9,12 +9,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Prefab_CurrencyItemBox {
@@ -41,15 +37,15 @@ public class Prefab_CurrencyItemBox {
             Text nameText = new Text("1 " + currency.getCurrency() + " = " + currency.getUsd_conversion() + "$");
             nameText.getStyleClass().add("itemText");
 
-            ImageView icon_edit = new ImageView(new Image(ControllerMainPanel.class.getResourceAsStream("canvas/icons/edit.png")));
+            ImageView icon_edit = new ImageView(new Image(ControllerAdministratorMainPanel.class.getResourceAsStream("canvas/icons/edit.png")));
             icon_edit.setFitWidth(20);  icon_edit.setFitHeight(20);
             Button editButton = new Button(); editButton.setGraphic(icon_edit);
             editButton.setOnAction(event->{
-                Prefab_DialogueEdit prefabDialogueEdit = new Prefab_DialogueEdit();
+                Prefab_DialogueEdit prefabDialogueEdit = new Prefab_DialogueEdit(currency);
                 prefabDialogueEdit.showDialog();
             });
 
-            ImageView icon_destroy = new ImageView(new Image(ControllerMainPanel.class.getResourceAsStream("canvas/icons/trash.png")));
+            ImageView icon_destroy = new ImageView(new Image(ControllerAdministratorMainPanel.class.getResourceAsStream("canvas/icons/trash.png")));
             icon_destroy.setFitWidth(20);  icon_destroy.setFitHeight(20);
             Button destroyButton = new Button(); destroyButton.setGraphic(icon_destroy);
 
