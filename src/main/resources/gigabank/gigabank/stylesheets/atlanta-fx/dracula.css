@@ -4593,7 +4593,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
   -fx-background-color: -color-bg-default;
   -fx-text-fill: -color-fg-default;
   -fx-effect: none;
-  -fx-padding: 15;
+  -fx-padding: 7;
 }
 .titled-pane.elevated-1 {
   -fx-effect: dropshadow(three-pass-box, -color-shadow-default, 2px, 0.5, 0, 2);
@@ -4610,16 +4610,16 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
 .titled-pane > .title {
   /*-fx-background-color: -color-border-default, -color-bg-default;*/
   -fx-background-color: -color-border-default, -main-color;
-  -fx-padding: 10px 20px 10px 20px;
+  -fx-padding: 7px 7px 7px 7px;
 }
 .titled-pane > .title > .text {
-  -fx-font-size: 1.25em;
+  -fx-font-size: 14;
 }
 .titled-pane > .title > .arrow-button {
   -fx-background-color: none;
   -fx-background-insets: 0;
   -fx-background-radius: 0;
-  -fx-padding: 0 10px 0 0;
+  -fx-padding: 0 7px 0 0;
 }
 .titled-pane > .title > .arrow-button > .arrow {
   -fx-shape: "M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z";
@@ -4633,7 +4633,7 @@ Add support for NO_HEADER tweak in tables .table-view.no-header > .column-header
   -fx-border-radius: 0 0 6px 6px;
   -fx-background-radius: 0 0 6px 6px;
   -fx-background-color: -color-bg-default;
-  -fx-padding: 10px 10px 10px 20px;
+  -fx-padding: 5px 5px 5px 5px;
   -fx-alignment: TOP_LEFT;
 }
 .titled-pane:disabled > .title > *,

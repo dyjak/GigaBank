@@ -35,3 +35,7 @@
     -fx-animated: 1;
     -fx-padding: 3;
 }
+
+.debug{
+    -fx-background-color: red;
+}

@@ -70,7 +70,6 @@ public class Prefab_UserItemBox {
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
-
                     Prefab_AccountBox prefabAccountBox = new Prefab_AccountBox();
                     prefabAccountBox.show(moreItemsBox, accounts_x);
                 }

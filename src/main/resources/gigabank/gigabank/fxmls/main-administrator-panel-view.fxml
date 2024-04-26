@@ -79,13 +79,13 @@
                   <Insets bottom="5.0" left="15.0" right="15.0" />
                </VBox.margin>
             </GridPane>
-            <TabPane prefHeight="517.0" prefWidth="375.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="375.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Currencies">
                      <content>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="332.0">
                            <content>
-                              <VBox fx:id="currenciesPane" maxHeight="1.7976931348623157E308" prefHeight="158.0" prefWidth="374.0">
+                              <VBox fx:id="currenciesPane" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="158.0" prefWidth="374.0">
                                  <children>
                                     <GridPane prefHeight="30.0" prefWidth="310.0" styleClass="itemBox">
                                        <children>
@@ -141,9 +141,9 @@
                      </content></Tab>
                 <Tab style="-fx-font-size: 15;" text="Users">
                      <content>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="332.0">
+                        <ScrollPane prefHeight="475.0" prefWidth="277.0">
                            <content>
-                              <VBox fx:id="usersPane" maxHeight="1.7976931348623157E308" prefHeight="158.0" prefWidth="374.0">
+                              <VBox fx:id="usersPane" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="158.0" prefWidth="375.0">
                                  <children>
                                     <GridPane prefHeight="30.0" prefWidth="310.0" styleClass="itemBox">
                                       <columnConstraints>

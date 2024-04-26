@@ -34,12 +34,14 @@ public class Prefab_DialogueEdit {
         ColumnConstraints col2 = new ColumnConstraints();
         col1.setPercentWidth(70);
         col2.setPercentWidth(30);
+        grid.getColumnConstraints().addAll(col1, col2);
 
         GridPane gridInner = new GridPane();
         ColumnConstraints col3 = new ColumnConstraints();
         ColumnConstraints col4 = new ColumnConstraints();
         col1.setPercentWidth(15);
         col2.setPercentWidth(15);
+        grid.getColumnConstraints().addAll(col3, col4);
 
         TextField currencyName = new TextField(currency.getCurrency());
         currencyName.setPromptText("Enter a currency name");

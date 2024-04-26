@@ -24,8 +24,8 @@ public class Prefab_AccountBox {
 
 
     public void show(VBox userBox, ArrayList<EntityAccount> accounts_x) {
-        for (EntityAccount account : accounts_x) {
 
+        for (EntityAccount account : accounts_x) {
             VBox expandedBox = new VBox();
             VBox moreItemsBox = new VBox();
             moreItemsBox.setPrefWidth(999);
@@ -51,8 +51,23 @@ public class Prefab_AccountBox {
                         expandButton.setGraphic(icon_arrow_up);
                         TitledPane accountInfoPane = new TitledPane(); ;
                         accountInfoPane.setText("Account Info"); accountInfoPane.setExpanded(false);
+                        Prefab_AccountInfoBox prefab_AccountInfoBox = new Prefab_AccountInfoBox();
+                        prefab_AccountInfoBox.show();
+
                         TitledPane accountTransactionsPane = new TitledPane();
                         accountTransactionsPane.setText("Transactions"); accountTransactionsPane.setExpanded(false);
+                        VBox transactionsBox = new VBox();
+                        Button buttonCreateTransaction = new Button("PLUS");
+                        buttonCreateTransaction.setPrefWidth(999);
+                        transactionsBox.getChildren().add(buttonCreateTransaction);
+                        Prefab_TransactionsBox prefabTransactionsBox = new Prefab_TransactionsBox();
+                        try {
+                            prefabTransactionsBox.show(transactionsBox, account);
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        accountTransactionsPane.setContent(transactionsBox);
+
                         TitledPane accountDepositsPane = new TitledPane();
                         accountDepositsPane.setText("Deposits"); accountDepositsPane.setExpanded(false);
                         TitledPane accountLoansPane = new TitledPane();
