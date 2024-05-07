@@ -1,6 +1,7 @@
 package gigabank.gigabank.Entities;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
@@ -131,7 +132,7 @@ public class DB_ClassicListBuilder {
             int account_id = resultSet.getInt("account_id");
             double amount = resultSet.getDouble("amount");
             String contractor_account_number = resultSet.getString("contractor_account_number");
-            Timestamp execute_date = resultSet.getTimestamp("execute_date");
+            String execute_date = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(resultSet.getTimestamp("execute_date"));
             String description = resultSet.getString("description");
 
             EntityTransaction transaction = new EntityTransaction(transaction_id,account_id,amount,contractor_account_number,execute_date,description);

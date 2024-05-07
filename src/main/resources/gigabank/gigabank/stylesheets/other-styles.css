@@ -1,8 +1,9 @@
 *{
-    -main-color: #720455;
-    -color-1: #030637;
-    -color-2: #3C0753;
-    -color-3: #910A67;
+    -main-color: #0C0A3E;
+    -color-1: #7B1E7A;
+    -color-2: #B33F62;
+    -color-3: #F9564F;
+    -color-4: #F3C677;
 }
 
 .itemBox{
@@ -18,19 +19,33 @@
     -fx-padding: 3;
 }
 
-#boxTitle{
-    -fx-background-color: -main-color;
-}
-
-.accountBox{
-    -fx-background-color: -color-1;
+.expandedItemBox2{
+    -fx-background-color: -color-2;
     -fx-background-radius: 5;
     -fx-animated: 1;
     -fx-padding: 3;
 }
 
+#boxTitle{
+    -fx-background-color: -main-color;
+}
+
+.particularBox{
+    -fx-background-color: -color-4;
+    -fx-background-radius: 5;
+    -fx-animated: 1;
+    -fx-padding: 3;
+}
+
+.contentBox{
+        -fx-background-color: -color-2;
+        -fx-background-radius: 5;
+        -fx-animated: 1;
+        -fx-padding: 3;
+    }
+
 .otherBox{
-    -fx-background-color: -color-3;
+    -fx-background-color: -color-4;
     -fx-background-radius: 5;
     -fx-animated: 1;
     -fx-padding: 3;

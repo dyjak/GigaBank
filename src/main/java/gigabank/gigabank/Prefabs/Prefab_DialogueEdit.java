@@ -5,10 +5,13 @@ import gigabank.gigabank.Entities.DB_ProceduralUpdater;
 import gigabank.gigabank.Entities.EntityCurrency;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.util.Pair;
 
 import java.sql.SQLException;
@@ -36,11 +39,12 @@ public class Prefab_DialogueEdit {
         col2.setPercentWidth(30);
         grid.getColumnConstraints().addAll(col1, col2);
 
+
         GridPane gridInner = new GridPane();
         ColumnConstraints col3 = new ColumnConstraints();
         ColumnConstraints col4 = new ColumnConstraints();
-        col1.setPercentWidth(15);
-        col2.setPercentWidth(15);
+        col1.setPercentWidth(50);
+        col2.setPercentWidth(50);
         grid.getColumnConstraints().addAll(col3, col4);
 
         TextField currencyName = new TextField(currency.getCurrency());
@@ -95,7 +99,10 @@ public class Prefab_DialogueEdit {
             }
         });
 
-        dialog.getDialogPane().setContent(grid);
+        StackPane root = new StackPane(grid);
+        root.setPrefSize(300,100);
+        root.setAlignment(Pos.CENTER);
+        dialog.getDialogPane().setContent(root);
 
 
         dialog.setResultConverter(dialogButton -> {

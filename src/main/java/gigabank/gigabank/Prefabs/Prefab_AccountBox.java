@@ -6,13 +6,12 @@ import gigabank.gigabank.Entities.EntityAccount;
 import gigabank.gigabank.Entities.EntityCurrency;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -27,13 +26,14 @@ public class Prefab_AccountBox {
 
         for (EntityAccount account : accounts_x) {
             VBox expandedBox = new VBox();
+            expandedBox.getStyleClass().add("expandedItemBox2");
             VBox moreItemsBox = new VBox();
-            moreItemsBox.setPrefWidth(999);
-            moreItemsBox.getStyleClass().add("otherBox");
+            moreItemsBox.setPrefSize(999,0); moreItemsBox.setVisible(false);
+            moreItemsBox.getStyleClass().add("contentBox");
             Text accountIdText = new Text("   ID: " + account.getAccount_id());
-            accountIdText.setFont(new Font(11));
+            accountIdText.setFont(new Font(9));
             Text accountNumberText = new Text(account.getAccount_number());
-            Text accountBalanceText = new Text(String.valueOf(account.getBalance()));
+            //Text accountBalanceText = new Text(String.valueOf(account.getBalance()));
             Text accountCurrencyText = new Text("unknown");
             ImageView icon_arrow_down = new ImageView(new Image(ControllerAdministratorMainPanel.class.getResourceAsStream("canvas/icons/chevron_down.png")));
             icon_arrow_down.setFitWidth(20);
@@ -49,15 +49,37 @@ public class Prefab_AccountBox {
                     {
                         expanded[0] = true;
                         expandButton.setGraphic(icon_arrow_up);
-                        TitledPane accountInfoPane = new TitledPane(); ;
-                        accountInfoPane.setText("Account Info"); accountInfoPane.setExpanded(false);
-                        Prefab_AccountInfoBox prefab_AccountInfoBox = new Prefab_AccountInfoBox();
-                        prefab_AccountInfoBox.show();
+                        moreItemsBox.setVisible(true);
 
+                        //CONTROLS
+                        ImageView icon_destroy = new ImageView(new Image(ControllerAdministratorMainPanel.class.getResourceAsStream("canvas/icons/trash.png")));
+                        ImageView icon_edit = new ImageView(new Image(ControllerAdministratorMainPanel.class.getResourceAsStream("canvas/icons/edit.png")));
+                        icon_edit.setFitHeight(20); icon_edit.setFitWidth(20); icon_destroy.setFitWidth(20); icon_destroy.setFitHeight(20);
+                        Button buttonModify = new Button();
+                        Button buttonDestroy = new Button();
+                        buttonModify.setGraphic(icon_edit);
+                        buttonDestroy.setGraphic(icon_destroy);
+                        HBox accountControlsBox = new HBox(buttonModify, buttonDestroy);
+
+
+                        //ACCOUNT-INFO
+                        VBox accountInfoBox = new VBox();
+                        Prefab_AccountInfoBox prefab_accountInfoBox = new Prefab_AccountInfoBox();
+                        try {
+                            prefab_accountInfoBox.show(accountInfoBox, account);
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        }
+
+                        //TRANSACTIONS
                         TitledPane accountTransactionsPane = new TitledPane();
                         accountTransactionsPane.setText("Transactions"); accountTransactionsPane.setExpanded(false);
+                        accountTransactionsPane.getStyleClass().add("contentBox");
                         VBox transactionsBox = new VBox();
-                        Button buttonCreateTransaction = new Button("PLUS");
+                        ImageView icon_create = new ImageView(new Image(ControllerAdministratorMainPanel.class.getResourceAsStream("canvas/icons/plus.png")));
+                        icon_create.setFitHeight(20); icon_create.setFitWidth(20);
+                        Button buttonCreateTransaction = new Button();
+                        buttonCreateTransaction.setGraphic(icon_create);
                         buttonCreateTransaction.setPrefWidth(999);
                         transactionsBox.getChildren().add(buttonCreateTransaction);
                         Prefab_TransactionsBox prefabTransactionsBox = new Prefab_TransactionsBox();
@@ -68,16 +90,15 @@ public class Prefab_AccountBox {
                         }
                         accountTransactionsPane.setContent(transactionsBox);
 
-                        TitledPane accountDepositsPane = new TitledPane();
-                        accountDepositsPane.setText("Deposits"); accountDepositsPane.setExpanded(false);
-                        TitledPane accountLoansPane = new TitledPane();
-                        accountLoansPane.setText("Loans"); accountLoansPane.setExpanded(false);
-                        moreItemsBox.getChildren().addAll(accountInfoPane, accountTransactionsPane, accountDepositsPane, accountLoansPane);
+
+
+                        moreItemsBox.getChildren().addAll(accountControlsBox, accountInfoBox, accountTransactionsPane);
                     }
                     else {
                         expanded[0] = false;
                         expandButton.setGraphic(icon_arrow_down);
                         moreItemsBox.getChildren().clear();
+                        moreItemsBox.setVisible(false);
                     }
 
                 });
@@ -89,26 +110,16 @@ public class Prefab_AccountBox {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            ColumnConstraints col_id = new ColumnConstraints();
-            col_id.setPercentWidth(15); col_id.setFillWidth(false);
-            ColumnConstraints col_number = new ColumnConstraints();
-            col_number.setPercentWidth(35); col_number.setFillWidth(false);
-            ColumnConstraints col_balance = new ColumnConstraints();
-            col_balance.setPercentWidth(20);    col_balance.setFillWidth(false);
-            ColumnConstraints col_currency = new ColumnConstraints();
-            col_currency.setPercentWidth(15);   col_currency.setFillWidth(false);
-            ColumnConstraints col_button = new ColumnConstraints();
-            col_button.setPercentWidth(15);   col_button.setFillWidth(false);
-            GridPane accountBox = new GridPane();
 
-            accountBox.getColumnConstraints().addAll(col_id, col_number, col_balance, col_currency, col_button);
+            GridPane accountBox = new GridPane();
             accountBox.add(accountIdText, 0, 0);
             accountBox.add(accountNumberText, 1, 0);
-            accountBox.add(accountBalanceText, 2, 0);
-            accountBox.add(accountCurrencyText, 3, 0);
-            accountBox.add(expandButton, 4, 0);
-            accountBox.getStyleClass().add("accountBox");
-            VBox.setMargin(expandedBox, new Insets(3, 3, 3, 3));
+            accountBox.add(accountCurrencyText, 2, 0);
+            accountBox.add(expandButton, 3, 0);
+            accountBox.getStyleClass().add("particularBox");
+            VBox.setMargin(accountBox, new Insets(5, 5, 0, 5));
+            VBox.setMargin(expandedBox, new Insets(5, 0, 5, 0));
+
             expandedBox.getChildren().addAll(accountBox, moreItemsBox);
 
             userBox.getChildren().add(expandedBox);

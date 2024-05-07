@@ -2,13 +2,11 @@ package gigabank.gigabank.Prefabs;
 
 import gigabank.gigabank.ControllerAdministratorMainPanel;
 import gigabank.gigabank.ControllerLoginPanel;
-import gigabank.gigabank.Entities.DB_ClassicListBuilder;
-import gigabank.gigabank.Entities.EntityAccount;
-import gigabank.gigabank.Entities.EntityCurrency;
-import gigabank.gigabank.Entities.EntityUser;
+import gigabank.gigabank.Entities.*;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -63,15 +61,50 @@ public class Prefab_UserItemBox {
                 } else {
                     expanded[0] = true;
                     expandButton.setGraphic(icon_arrow_up);
-                    String query = "SELECT * FROM accounts WHERE accounts.user_id = " + user.getUser_id();
+
+                    //ACCOUNTS
+                    TitledPane accountsPane = new TitledPane();
+                    accountsPane.setText("Accounts"); accountsPane.setExpanded(false);
+                    moreItemsBox.getChildren().addAll(accountsPane);
+                    String query1 = "SELECT * FROM accounts WHERE accounts.user_id = " + user.getUser_id();
                     ArrayList<EntityAccount> accounts_x = null;
                     try {
-                        accounts_x = DB_ClassicListBuilder.accountListBuild(query);
+                        accounts_x = DB_ClassicListBuilder.accountListBuild(query1);
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
+                    ImageView icon_create = new ImageView(new Image(ControllerAdministratorMainPanel.class.getResourceAsStream("canvas/icons/plus.png")));
+                    icon_create.setFitHeight(20); icon_create.setFitWidth(20);
+                    Button buttonCreateAccount = new Button();
+                    buttonCreateAccount.setGraphic(icon_create);
+                    buttonCreateAccount.setPrefWidth(999);
+                    VBox accountsBox = new VBox(buttonCreateAccount);
                     Prefab_AccountBox prefabAccountBox = new Prefab_AccountBox();
-                    prefabAccountBox.show(moreItemsBox, accounts_x);
+                    prefabAccountBox.show(accountsBox, accounts_x);
+                    accountsPane.setContent(accountsBox);
+
+
+                    //DEPOSITS
+                    TitledPane depositsPane = new TitledPane();
+                    depositsPane.setText("Deposits"); depositsPane.setExpanded(false);
+                    moreItemsBox.getChildren().addAll(depositsPane);
+                    String query2 = "SELECT * FROM deposits WHERE deposits.user_id = " + user.getUser_id();
+                    ArrayList<EntityDeposit> deposits_x = null;
+                    try {
+                        deposits_x = DB_ClassicListBuilder.depositListBuild(query2);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    VBox depositsBox = new VBox();
+                    Prefab_DepositBox prefabDepositBox = new Prefab_DepositBox();
+                    prefabDepositBox.show(depositsBox, deposits_x);
+                    depositsPane.setContent(depositsBox);
+
+
+                    //LOANS
+                    TitledPane loansPane = new TitledPane();
+                    loansPane.setText("Loans"); loansPane.setExpanded(false);
+                    moreItemsBox.getChildren().addAll(loansPane);
                 }
             });
 

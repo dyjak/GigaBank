@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -72,7 +73,24 @@ public class ControllerAdministratorMainPanel implements Initializable {
     private VBox currenciesPane;
     @FXML
     private TextField searchField;
+    @FXML
+    private RadioButton radioSortAZ;
+    @FXML
+    private RadioButton radioSortZA;
 
+    private String sortDirection = "surname ASC";
+    public void changeSortDirectionToAscending() {
+        radioSortAZ.setSelected(true);
+        radioSortZA.setSelected(false);
+        sortDirection = "surname ASC";
+        updateResults(new ActionEvent());
+    }
+    public void changeSortDirectionToDescending() {
+        radioSortAZ.setSelected(false);
+        radioSortZA.setSelected(true);
+        sortDirection = "surname DESC";
+        updateResults(new ActionEvent());
+    }
 
 
     public void updateResults(ActionEvent event) {
@@ -96,7 +114,7 @@ public class ControllerAdministratorMainPanel implements Initializable {
         ArrayList<EntityUser> users_x = null;
         try
         {
-            users_x = listBuilder.userListBuild(searchText);
+            users_x = listBuilder.userListBuild(searchText, sortDirection);
         } catch (SQLException e) {
             throw new RuntimeException(e);}
 

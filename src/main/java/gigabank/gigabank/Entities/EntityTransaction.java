@@ -8,10 +8,10 @@ public class EntityTransaction {
     int account_id;
     double amount;
     String contractor_account_number;
-    Timestamp execute_date;
+    String execute_date;
     String description;
 
-    public EntityTransaction(int transaction_id, int account_id, double amount, String contractor_account_number, Timestamp execute_date, String description) {
+    public EntityTransaction(int transaction_id, int account_id, double amount, String contractor_account_number, String execute_date, String description) {
         this.transaction_id = transaction_id;
         this.account_id = account_id;
         this.amount = amount;
@@ -52,11 +52,11 @@ public class EntityTransaction {
         this.contractor_account_number = contractor_account_number;
     }
 
-    public Timestamp getExecute_date() {
+    public String getExecute_date() {
         return execute_date;
     }
 
-    public void setExecute_date(Timestamp execute_date) {
+    public void setExecute_date(String execute_date) {
         this.execute_date = execute_date;
     }
 
