@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -52,6 +53,7 @@ public class Prefab_UserItemBox {
             itemBox.add(idText, 0, 0);
             itemBox.add(nameText, 1, 0);
             itemBox.add(expandButton, 2, 0);
+//            HBox itemBox = new HBox();
             VBox moreItemsBox = new VBox();
             expandButton.setOnAction(event -> {
                 if (expanded[0]) {
@@ -105,6 +107,17 @@ public class Prefab_UserItemBox {
                     TitledPane loansPane = new TitledPane();
                     loansPane.setText("Loans"); loansPane.setExpanded(false);
                     moreItemsBox.getChildren().addAll(loansPane);
+                    String query3 = "SELECT * FROM loans WHERE loans.user_id = " + user.getUser_id();
+                    ArrayList<EntityLoan> loans_x = null;
+                    try {
+                        loans_x = DB_ClassicListBuilder.loanListBuild(query3);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    VBox loansBox = new VBox();
+                    Prefab_LoanBox prefabLoanBox = new Prefab_LoanBox();
+                    prefabLoanBox.show(loansBox, loans_x);
+                    loansPane.setContent(loansBox);
                 }
             });
 

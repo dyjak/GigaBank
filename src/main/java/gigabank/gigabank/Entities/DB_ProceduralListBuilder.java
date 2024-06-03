@@ -1,5 +1,7 @@
 package gigabank.gigabank.Entities;
 
+import oracle.sql.STRUCT;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -81,12 +83,18 @@ public class DB_ProceduralListBuilder {
 
         String[] account_info = null;
         while (resultSet.next()) {
-            String owner = resultSet.getString("owner_info");
+            String owner = resultSet.getString("owner");
+            String permission = resultSet.getString("permission");
             String account_number = resultSet.getString("account_number");
-            String balance = String.valueOf(resultSet.getDouble("balance"));
-            String currency = resultSet.getString("currency");
+            STRUCT balanceCurrencyStruct = (STRUCT) resultSet.getObject("balance_currency");
+            Object[] balanceCurrencyAttributes = balanceCurrencyStruct.getAttributes();
+            String balance = String.valueOf(balanceCurrencyAttributes[0]);
+            String currency = (String) balanceCurrencyAttributes[1];
+            String deposit_count = String.valueOf(resultSet.getString("deposit_count"));
+            String loan_count = String.valueOf(resultSet.getString("loan_count"));
+            String date = resultSet.getString("create_date");
 
-            account_info = new String[] {owner, account_number, balance, currency};
+            account_info = new String[] {owner, permission, account_number, balance, currency, deposit_count, loan_count, date};
         }
         return account_info;
     }
