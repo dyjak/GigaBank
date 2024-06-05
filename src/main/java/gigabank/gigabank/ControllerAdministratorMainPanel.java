@@ -1,9 +1,11 @@
 package gigabank.gigabank;
 
 import gigabank.gigabank.Entities.*;
+import gigabank.gigabank.Prefabs.Dialogues.Prefab_DialogueCreateCurrency;
 import gigabank.gigabank.Prefabs.Prefab_CurrencyItemBox;
 import gigabank.gigabank.Prefabs.Prefab_UserItemBox;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -136,6 +138,10 @@ public class ControllerAdministratorMainPanel implements Initializable {
         ImageView icon_create = new ImageView(new Image(getClass().getResourceAsStream("canvas/icons/plus.png"))); icon_create.setFitWidth(20);    icon_create.setFitHeight(20);
         Button createButton = new Button();   createButton.setPrefWidth(999); createButton.setGraphic(icon_create);
         currenciesPane.getChildren().add(createButton);
+            createButton.setOnAction(event-> {
+                Prefab_DialogueCreateCurrency prefabDialogueCreateCurrency = new Prefab_DialogueCreateCurrency();
+                prefabDialogueCreateCurrency.showDialog();
+            });
 
         //CURRENCIES LIST
         DB_ProceduralListBuilder listBuilder = new DB_ProceduralListBuilder();

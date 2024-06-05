@@ -2,6 +2,8 @@ package gigabank.gigabank.Prefabs;
 
 import gigabank.gigabank.ControllerAdministratorMainPanel;
 import gigabank.gigabank.Entities.EntityCurrency;
+import gigabank.gigabank.Prefabs.Dialogues.Prefab_DialogueDestroyCurrency;
+import gigabank.gigabank.Prefabs.Dialogues.Prefab_DialogueEditCurrency;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -41,13 +43,17 @@ public class Prefab_CurrencyItemBox {
             icon_edit.setFitWidth(20);  icon_edit.setFitHeight(20);
             Button editButton = new Button(); editButton.setGraphic(icon_edit);
             editButton.setOnAction(event->{
-                Prefab_DialogueEdit prefabDialogueEdit = new Prefab_DialogueEdit(currency);
+                Prefab_DialogueEditCurrency prefabDialogueEdit = new Prefab_DialogueEditCurrency(currency);
                 prefabDialogueEdit.showDialog();
             });
 
             ImageView icon_destroy = new ImageView(new Image(ControllerAdministratorMainPanel.class.getResourceAsStream("canvas/icons/trash.png")));
             icon_destroy.setFitWidth(20);  icon_destroy.setFitHeight(20);
             Button destroyButton = new Button(); destroyButton.setGraphic(icon_destroy);
+            destroyButton.setOnAction(event->{
+                Prefab_DialogueDestroyCurrency prefabDialogueDestroy = new Prefab_DialogueDestroyCurrency(currency);
+                prefabDialogueDestroy.showDialog();
+            });
 
             itemBox.add(idText,0,0);
             itemBox.add(nameText,1,0);

@@ -1,9 +1,8 @@
 package gigabank.gigabank.Entities;
 
 import java.sql.*;
-import java.util.ArrayList;
 
-public class DB_ProceduralUpdater {
+public class DB_ProceduralDestroyer {
 
     //CONNECTION ESTABLISHMENT
     private static Connection DB_EstablishConnection() throws SQLException {
@@ -14,13 +13,11 @@ public class DB_ProceduralUpdater {
         return connection;
     }
 
-    //UPDATE CURRENCY
-    public void currencyUpdate(String argName, double argConversion, int argID) throws SQLException {
+    //DESTROY CURRENCY
+    public void currencyDestroy(int argID) throws SQLException {
         Statement createStatement = DB_EstablishConnection().createStatement();
-        CallableStatement callableStatement = DB_EstablishConnection().prepareCall("{CALL update_currency(?, ?, ?)}");
-        callableStatement.setString(1, argName);
-        callableStatement.setDouble(2, argConversion);
-        callableStatement.setInt(3, argID);
+        CallableStatement callableStatement = DB_EstablishConnection().prepareCall("{CALL delete_currency(?)}");
+        callableStatement.setInt(1, argID);
         callableStatement.execute();
         callableStatement.close();
         System.out.println("SUCCESS!");
