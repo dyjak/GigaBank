@@ -46,12 +46,7 @@
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin></ImageView>
-                  <Text id="helloText" fill="#f3f3f3" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello Text" textAlignment="CENTER" wrappingWidth="203.826171875" GridPane.columnIndex="2">
-                     <font>
-                        <Font name="Yu Gothic UI Semilight" size="24.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#f3f3f3" strokeType="OUTSIDE" strokeWidth="0.0" text=" &lt;" textAlignment="CENTER" wrappingWidth="33.826171875">
+                  <Text id="helloText" fx:id="helloText" fill="#f3f3f3" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello Text" textAlignment="CENTER" wrappingWidth="203.826171875" GridPane.columnIndex="2">
                      <font>
                         <Font name="Yu Gothic UI Semilight" size="24.0" />
                      </font>
@@ -103,7 +98,7 @@
                   <Insets bottom="5.0" left="15.0" right="15.0" />
                </VBox.margin>
             </GridPane>
-            <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="517.0" prefWidth="375.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="581.0" prefWidth="375.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab style="-fx-font-size: 15;" text="                Users                ">
                      <content>
@@ -227,11 +222,6 @@
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </VBox.margin>
             </TabPane>
-                <Button mnemonicParsing="false" onAction="#switchToLoginPanel" prefHeight="17.0" prefWidth="405.0" text="Button" textFill="#f8f8f8">
-                    <VBox.margin>
-                        <Insets top="20.0" />
-                    </VBox.margin>
-                </Button>
             </children>
         </VBox>
     </children>

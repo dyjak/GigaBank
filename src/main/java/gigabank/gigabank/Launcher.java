@@ -26,7 +26,7 @@ public class Launcher extends Application {
         System.out.println(users_x);
 
         //IMAGES
-        Image image = new Image(Launcher.class.getResourceAsStream("canvas/icons/edit.png"));
+        Image image = new Image(Launcher.class.getResourceAsStream("canvas/logo/gigabank-logo-favicon.png"));
         stage.getIcons().add(image);
 
 

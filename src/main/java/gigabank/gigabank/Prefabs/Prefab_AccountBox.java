@@ -4,12 +4,15 @@ import gigabank.gigabank.ControllerAdministratorMainPanel;
 import gigabank.gigabank.Entities.DB_ClassicListBuilder;
 import gigabank.gigabank.Entities.EntityAccount;
 import gigabank.gigabank.Entities.EntityCurrency;
+import gigabank.gigabank.Prefabs.Dialogues.Prefab_DialogueCreateTransaction;
+import gigabank.gigabank.Prefabs.Dialogues.Prefab_DialogueDestroyAccount;
+import gigabank.gigabank.Prefabs.Dialogues.Prefab_DialogueEditAccount;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -60,6 +63,16 @@ public class Prefab_AccountBox {
                         buttonModify.setGraphic(icon_edit);
                         buttonDestroy.setGraphic(icon_destroy);
                         HBox accountControlsBox = new HBox(buttonModify, buttonDestroy);
+                        accountControlsBox.setPrefWidth(999); buttonModify.setPrefWidth(999); buttonDestroy.setPrefWidth(999);
+                            buttonModify.setOnAction(event->{
+                                Prefab_DialogueEditAccount prefabDialogueEditAccount = null;
+                                prefabDialogueEditAccount = new Prefab_DialogueEditAccount(account);
+                                prefabDialogueEditAccount.showDialog();
+                            });
+                            buttonDestroy.setOnAction(event->{
+                                Prefab_DialogueDestroyAccount prefabDialogueDestroyAccount = new Prefab_DialogueDestroyAccount(account);
+                                prefabDialogueDestroyAccount.showDialog();
+                            });
 
 
                         //ACCOUNT-INFO
@@ -81,6 +94,10 @@ public class Prefab_AccountBox {
                         Button buttonCreateTransaction = new Button();
                         buttonCreateTransaction.setGraphic(icon_create);
                         buttonCreateTransaction.setPrefWidth(999);
+                            buttonCreateTransaction.setOnAction(event->{
+                                Prefab_DialogueCreateTransaction prefabDialogueCreateTransaction = new Prefab_DialogueCreateTransaction(account.getAccount_id());
+                                prefabDialogueCreateTransaction.showDialog();
+                            });
                         transactionsBox.getChildren().add(buttonCreateTransaction);
                         Prefab_TransactionsBox prefabTransactionsBox = new Prefab_TransactionsBox();
                         try {
@@ -111,10 +128,13 @@ public class Prefab_AccountBox {
                 throw new RuntimeException(e);
             }
 
+            VBox accountIdBox = new VBox(accountIdText); accountIdBox.setPrefWidth(99); accountIdBox.setAlignment(Pos.CENTER);
+            VBox accountNumberBox = new VBox(accountNumberText); accountNumberBox.setPrefWidth(99); accountNumberBox.setAlignment(Pos.CENTER);
+            VBox accountCurrencyBox = new VBox(accountCurrencyText); accountCurrencyBox.setPrefWidth(99); accountCurrencyBox.setAlignment(Pos.CENTER);
             GridPane accountBox = new GridPane();
-            accountBox.add(accountIdText, 0, 0);
-            accountBox.add(accountNumberText, 1, 0);
-            accountBox.add(accountCurrencyText, 2, 0);
+            accountBox.add(accountIdBox, 0, 0);
+            accountBox.add(accountNumberBox, 1, 0);
+            accountBox.add(accountCurrencyBox, 2, 0);
             accountBox.add(expandButton, 3, 0);
             accountBox.getStyleClass().add("particularBox");
             VBox.setMargin(accountBox, new Insets(5, 5, 0, 5));

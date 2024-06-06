@@ -2,6 +2,7 @@ package gigabank.gigabank;
 
 import gigabank.gigabank.Entities.*;
 import gigabank.gigabank.Prefabs.Dialogues.Prefab_DialogueCreateCurrency;
+import gigabank.gigabank.Prefabs.Dialogues.Prefab_DialogueCreateUser;
 import gigabank.gigabank.Prefabs.Prefab_CurrencyItemBox;
 import gigabank.gigabank.Prefabs.Prefab_UserItemBox;
 import javafx.event.ActionEvent;
@@ -18,14 +19,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ControllerAdministratorMainPanel implements Initializable {
 
@@ -60,12 +60,14 @@ public class ControllerAdministratorMainPanel implements Initializable {
     static boolean sortDesc = false;
 
 
-
+    @FXML
+    private Text helloText;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadResultsUsers();
         loadResultsCurrencies();
+        setHelloText();
     }
 
 
@@ -111,6 +113,10 @@ public class ControllerAdministratorMainPanel implements Initializable {
         ImageView icon_create = new ImageView(new Image(getClass().getResourceAsStream("canvas/icons/plus.png"))); icon_create.setFitWidth(20);    icon_create.setFitHeight(20);
         Button createButton = new Button();   createButton.setPrefWidth(999); createButton.setGraphic(icon_create);
         usersPane.getChildren().add(createButton);
+            createButton.setOnAction(event-> {
+                Prefab_DialogueCreateUser prefabDialogueCreateUser = new Prefab_DialogueCreateUser();
+                prefabDialogueCreateUser.showDialog();
+            });
 
         DB_ProceduralListBuilder listBuilder = new DB_ProceduralListBuilder();
         ArrayList<EntityUser> users_x = null;
@@ -156,4 +162,19 @@ public class ControllerAdministratorMainPanel implements Initializable {
         prefabCurrencyItemBox.show(currenciesPane, currencies_x);
     }
 
+
+
+
+
+
+    public void setHelloText()
+    {
+        Date nowTime = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(nowTime);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+        if(hour > 17) helloText.setText("Good Evening");
+        else helloText.setText("Good Morning");
+    }
 }

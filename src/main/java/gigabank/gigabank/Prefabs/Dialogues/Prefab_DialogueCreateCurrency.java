@@ -1,8 +1,7 @@
 package gigabank.gigabank.Prefabs.Dialogues;
 
 import gigabank.gigabank.ControllerAdministratorMainPanel;
-import gigabank.gigabank.Entities.DB_ProceduralCreater;
-import gigabank.gigabank.Entities.DB_ProceduralUpdater;
+import gigabank.gigabank.Entities.DB_ProceduralCreator;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -112,7 +111,7 @@ public class Prefab_DialogueCreateCurrency {
                 double finalConversion = currConv1 + currConv2;
                 System.out.println("Creating currency: " + name + " with conversion rate: " + finalConversion);
 
-                DB_ProceduralCreater dbProceduralCreater = new DB_ProceduralCreater();
+                DB_ProceduralCreator dbProceduralCreater = new DB_ProceduralCreator();
                 try {
                     dbProceduralCreater.currencyCreate(name, finalConversion);
                 } catch (SQLException e) {

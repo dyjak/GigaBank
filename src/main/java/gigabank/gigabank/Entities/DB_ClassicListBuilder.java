@@ -68,6 +68,26 @@ public class DB_ClassicListBuilder {
         return currency;
     }
 
+    public static ArrayList<EntityCurrency> allCurrenciesBuild() throws SQLException {
+
+        ResultSet resultSet = DB_EstablishConnection().executeQuery("SELECT * FROM currencies");
+
+        ArrayList<EntityCurrency> currencies = new ArrayList<>();
+        EntityCurrency currency = null;
+        while(resultSet.next()) {
+            int currency_id = resultSet.getInt("currency_id");
+            ;
+            String currencyName = resultSet.getString("currency");
+            ;
+            double usd_conversion = resultSet.getDouble("usd_conversion");
+            ;
+            currency = new EntityCurrency(currency_id, currencyName, usd_conversion);
+            currencies.add(currency);
+        }
+
+        return currencies;
+    }
+
 
     //DEPOSITS BUILDER
     public static ArrayList<EntityDeposit> depositListBuild(String sqlQuery) throws SQLException {
